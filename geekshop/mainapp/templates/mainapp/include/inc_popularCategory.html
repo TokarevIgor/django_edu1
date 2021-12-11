@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="tab-content">
+    {% for category in popular_category%}
+        <div class="block">
+            <a href="#"><img src="{% static category.img_path %}" alt="img"> 
+                <div class="text">
+                    <img src="{% static 'img/icon-hover.png' %}" alt="img">
+                    <h4>{{category.name}}</h4>
+                    <p>{{category.disc}} </p>
+                </div> 
+            </a>
+        </div>
+    {% endfor %}
+</div>
