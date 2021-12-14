@@ -4,7 +4,7 @@ from .models import ProductCategory, Product
 
 MENU_LINKS = [
     {'view_name': 'main', 'name': 'домой'},
-    {'view_name': 'products', 'name': 'продукты'},
+    {'view_name': 'products:index', 'name': 'продукты'},
     {'view_name': 'contact', 'name': 'контакты'}
 ]
 
@@ -64,7 +64,8 @@ def main(request):
     })
 
 
-def products(request):
+def products(request, pk=None):
+    print(request.resolver_match.url_name)
     return render(request, 'mainapp/products.html', context={
         'title': 'Каталог',
         'menu_links': MENU_LINKS,
