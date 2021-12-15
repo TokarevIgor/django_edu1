@@ -25,7 +25,7 @@ class Product(models.Model):
         verbose_name='цена со скидкой', max_digits=8, decimal_places=2, default=0)
     img = models.ImageField(upload_to='products_images', blank=True)
     its_new = models.BooleanField(verbose_name='это новый продукт', default=False)
-    its_popular = models.BooleanField(verbose_name='популярная категория', default=False)
+    its_popular = models.BooleanField(verbose_name='популярные товары', default=False)
 
     def __str__(self):
         return self.name
