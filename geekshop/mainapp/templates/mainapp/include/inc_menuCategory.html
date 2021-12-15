@@ -4,7 +4,7 @@
         <li><a href="{% url 'products:index' %}" {% if active_category == None  %} class="active"{% endif %}>все</a></li>
         {% for category in ls_category %}            
             <li><a href="{% url 'products:index' %}{{category.id}}"
-                {% if active_category == category.id %} class="active"{% endif %}>{{category.name}}</a></li>
+                {% if active_category.id == category.id %} class="active"{% endif %}>{{category.name}}</a></li>
         {% endfor %}        
     </ul>
 </div>

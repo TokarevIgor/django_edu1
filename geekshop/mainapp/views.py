@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import ProductCategory, Product
 
 MENU_LINKS = [
@@ -64,12 +64,19 @@ def main(request):
 
 
 def products(request, pk=None):
+    if not pk:
+        active_category = None
+        products = Product.objects.all()
+    else:
+        active_category = get_object_or_404(ProductCategory, id=pk)
+        products = Product.objects.filter(category=active_category)
+
     return render(request, 'mainapp/products.html', context={
         'title': 'Каталог',
         'menu_links': MENU_LINKS,
         'ls_category': ProductCategory.objects.all(),
-        'products': Product.objects.all(),
-        'active_category': pk
+        'products': products,
+        'active_category': active_category
     })
 
 
