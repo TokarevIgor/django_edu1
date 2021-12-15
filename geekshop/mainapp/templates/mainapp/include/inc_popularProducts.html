@@ -9,13 +9,13 @@
     </div>
 
     <div class="tab-content">
-        {% for category in popular_category%}
+        {% for product in popular_products%}
             <div class="block">
-                <a href="{% url 'products:index' %}{{category.id}}"><img src="/media/{{category.img}}" alt="img"> 
+                <a href="{% url 'products:index' %}{{product.id}}"><img src="/media/{{product.img}}" alt="img" class = "block"> 
                     <div class="text">
                         <img src="{% static 'img/icon-hover.png' %}" alt="img">
-                        <h4>{{category.name}}</h4>
-                        <p>{{category.disc}} </p>
+                        <h4>{{product.name}}</h4>
+                        <p>{{product.disc}} </p>
                     </div> 
                 </a>
             </div>
