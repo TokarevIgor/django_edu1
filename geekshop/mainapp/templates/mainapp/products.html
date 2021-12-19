@@ -11,8 +11,7 @@
 			{% include 'mainapp/include/inc_menuCategory.html' %}
 
 			<div class="details-products">
-				{% if products %}
-					{% with product=products.0  %}
+				{% if product %}
 						<div class="details-slider">
 							<div class="slider-product">
 								<img src="/media/{{ product.img }}">
@@ -30,7 +29,6 @@
 								{{product.discription}}
 							</div>
 						</div>
-					{% endwith %}
 				{% else %}
 					<div class="details-slider">
 						<div class="slider-product">
@@ -44,7 +42,7 @@
 					</div>
 				{% endif %}
 			</div>			
-			{% if products %}
+			{% if same_products %}
 				{% include 'mainapp/include/inc_simProducts.html' %}
 			{% endif %}
 		</div>
