@@ -25,12 +25,16 @@
             <div class="block">
                 <a href="{% url 'products:product' product.id %}"><img src="/media/{{product.img}}" alt="img">
                     <div class="text">
-                        <img src="{% static 'img/icon-hover.png' %}" alt="img">
+                        
                         <h4>{{ product.name }}</h4>
                         <p>{{ product.discription }}</p>
+                        <a href="{% url 'basket:add' product.pk %}" class="red-button-products_list">
+                          заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </a>
             </div>
+            <br>
         {% endfor %}
 
       </div>

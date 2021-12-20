@@ -1,9 +1,7 @@
 <div class="header clearfix">   
     <a href="/" class="logo"></a>
     <ul class="menu"> 
-        <!-- тут у меня вопрос с определением активной ссылки меню, когда я поменял логику url
-            на пространство имен, то перестала работать активность продуктов в момент перехода в категорию, я
-            не нашел как могу определить что именно нужно проверить из request.resolver_match на link.view_name -->
+        
         {% for link in  menu_links%}
         <li><a href="{% url link.view_name %}" 
             {% if request.resolver_match.view_name == link.view_name %} class="active"{% endif %} 
@@ -26,8 +24,11 @@
     </li>
     </ul>
     <a href="#" class="search"></a>
-    {% if request.resolver_match.url_name != 'main' %}
-        <a href="#" class="basket"></a>
-    {% endif %}
+    <a href="{% url 'basket:view' %}" class="basket">
+        <span>
+            {% if basket.basket %} {{ basket.quantity}} {{basket.total}} {% endif %}
+        </span>
+    </a>
+    
 
 </div>
