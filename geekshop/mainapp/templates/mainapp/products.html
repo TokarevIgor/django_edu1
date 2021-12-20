@@ -11,8 +11,7 @@
 			{% include 'mainapp/include/inc_menuCategory.html' %}
 
 			<div class="details-products">
-				{% if products %}
-					{% with product=products.0  %}
+				{% if product %}
 						<div class="details-slider">
 							<div class="slider-product">
 								<img src="/media/{{ product.img }}">
@@ -23,14 +22,13 @@
 							<h3 class="big-bold">{{product.name}}</h3>
 							<h3 class="red">{{product.short_discription}}</h3>
 							<p class="price"> {{product.price}} <span>руб</span></p>
-							<a href="#" class="red-button">
+							<a href="{% url 'basket:add' product.pk %}" class="red-button">
 								заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
 							</a>
 							<div class="description-text">
 								{{product.discription}}
 							</div>
 						</div>
-					{% endwith %}
 				{% else %}
 					<div class="details-slider">
 						<div class="slider-product">
@@ -44,7 +42,7 @@
 					</div>
 				{% endif %}
 			</div>			
-			{% if products %}
+			{% if same_products %}
 				{% include 'mainapp/include/inc_simProducts.html' %}
 			{% endif %}
 		</div>
