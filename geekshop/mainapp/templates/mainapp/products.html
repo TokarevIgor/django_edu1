@@ -3,48 +3,48 @@
 
 {% block content %}
 
-		<div class="hero-white">
-			{% include 'mainapp/include/inc_menu.html' %}
+<div class="hero-white">
+	{% include 'mainapp/include/inc_menu.html' %}
+</div>
+
+<div class="details">
+	{% include 'mainapp/include/inc_menuCategory.html' %}
+
+	<div class="details-products">
+		{% if hot_product %}
+		<div class="details-slider">
+			<div class="slider-product">
+				<img src="/media/{{ hot_product.img }}">
+			</div>
 		</div>
 
-		<div class="details">
-			{% include 'mainapp/include/inc_menuCategory.html' %}
-
-			<div class="details-products">
-				{% if hot_product %}
-						<div class="details-slider">
-							<div class="slider-product">
-								<img src="/media/{{ hot_product.img }}">
-							</div>
-						</div>
-
-						<div class="description">
-							<h3 class="big-bold">{{hot_product.name}}</h3>
-							<h3 class="red">{{hot_product.short_discription}}</h3>
-							<p class="price"> {{hot_product.price}} <span>руб</span></p>
-							<a href="{% url 'products:product' hot_product.pk %}" class="red-button">
-								заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
-							</a>
-							<div class="description-text">
-								{{hot_product.discription}}
-							</div>
-						</div>
-				{% else %}
-					<div class="details-slider">
-						<div class="slider-product">
-							<img src="{% static 'img/product-1-lg.jpg' %}">
-						</div>
-					</div>
-
-					<div class="description">
-						<h3 class="big-bold">Пока нет продуктов</h3>
-						<h3 class="red">Скоро добавим</h3>
-					</div>
-				{% endif %}
-			</div>			
-			{% if same_products %}
-				{% include 'mainapp/include/inc_simProducts.html' %}
-			{% endif %}
+		<div class="description">
+			<h3 class="big-bold">{{hot_product.name}}</h3>
+			<h3 class="red">{{hot_product.short_description}}</h3>
+			<p class="price"> {{hot_product.price}} <span>руб</span></p>
+			<a href="{% url 'products:product' hot_product.pk %}" class="red-button">
+				заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
+			</a>
+			<div class="description-text">
+				{{hot_product.description}}
+			</div>
 		</div>
+		{% else %}
+		<div class="details-slider">
+			<div class="slider-product">
+				<img src="{% static 'img/product-1-lg.jpg' %}">
+			</div>
+		</div>
+
+		<div class="description">
+			<h3 class="big-bold">Пока нет продуктов</h3>
+			<h3 class="red">Скоро добавим</h3>
+		</div>
+		{% endif %}
+	</div>
+	{% if same_products %}
+	{% include 'mainapp/include/inc_simProducts.html' %}
+	{% endif %}
+</div>
 
 {% endblock %}

@@ -1,31 +1,35 @@
 import json
 from django.core.management.base import BaseCommand
 
-def create_product(name, category, price, disc, img_path, its_new, its_popular=False):    
+
+def create_product(name, category, price, disc, img_path, is_new, is_popular=False):
     return {
-        'name':name,
-        'category':category,
+        'name': name,
+        'category': category,
         'price': price,
         'img': img_path,
-        'its_new':its_new,
-        'discription':disc,
-        'short_discription':disc,
-        "its_popular":its_popular
+        'is_new': is_new,
+        'description': disc,
+        'short_description': disc,
+        "is_popular": is_popular
     }
 
 
 def create_category(name, disc, img_path):
     return {
-        'name':name,
-        'discription':disc,
+        'name': name,
+        'description': disc,
         'img': img_path
     }
 
+
 ls_category = [
-    create_category('Стулья', 'Лучшие стулья в мире', 'category_images/product-1.jpg'),
+    create_category('Стулья', 'Лучшие стулья в мире',
+                    'category_images/product-1.jpg'),
     create_category('Все для кухни',
                     'Удобные на кухне, применимы везде', 'category_images/product-2.jpg'),
-    create_category('Лампы', 'Светят классно', 'category_images/product-3.jpg'),
+    create_category('Лампы', 'Светят классно',
+                    'category_images/product-3.jpg'),
     create_category('Вазы', 'Вазы для всех', 'category_images/product-4.jpg'),
 ]
 
@@ -44,6 +48,7 @@ ls_products = [
     create_product('Походу ваза какая то', 'Вазы', 100,
                    'Можно положить в нее что-то', 'products_images/product-61.jpg', False, True)
 ]
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):

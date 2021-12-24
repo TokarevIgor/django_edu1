@@ -2,20 +2,21 @@
 {% load static %}
 
 {% block content %}
-	<div class="slider">
-		{% include 'mainapp/include/inc_menu.html' %}
-		<div class="text-slider">
-			<h3 class="green">тенденции</h3>
-			<h3 class="big"> удобные стулья</h3>
-			<p>Новый уровень комфорта. Отличные характеристики.</p>
-			<a href="{% url 'products:category' 17 %}" class="button-order">заказать <img src="{% static 'img/arrow.png' %}" alt=""></a>
-		</div>	
-		<div class="navi">
-			<a href="#"></a><a href="#"></a><a href="#"></a>
-		</div>
+<div class="slider">
+	{% include 'mainapp/include/inc_menu.html' %}
+	<div class="text-slider">
+		<h3 class="green">тенденции</h3>
+		<h3 class="big"> удобные стулья</h3>
+		<p>Новый уровень комфорта. Отличные характеристики.</p>
+		<a href="{% url 'products:category' 17 %}" class="button-order">заказать <img src="{% static 'img/arrow.png' %}"
+				alt=""></a>
 	</div>
+	<div class="navi">
+		<a href="#"></a><a href="#"></a><a href="#"></a>
+	</div>
+</div>
 
-	
-	{% include 'mainapp/include/inc_popularProducts.html' %}
-		
+
+{% include 'mainapp/include/inc_popularProducts.html' %}
+
 {% endblock %}
