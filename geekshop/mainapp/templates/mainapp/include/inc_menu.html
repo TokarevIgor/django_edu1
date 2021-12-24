@@ -1,0 +1,35 @@
+<div class="header clearfix">
+    <a href="/" class="logo"></a>
+    <ul class="menu">
+
+        {% for link in  menu_links%}
+        <li><a href="{% url link.view_name %}" {% if request.resolver_match.view_name == link.view_name %}
+                class="active" {% endif %}>{{link.name}}</a>
+        </li>
+        {% endfor %}
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'auth:edit' %}">
+                {{ user.first_name|default:'Пользователь' }}
+            </a>
+        </li>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+            <a href="{% url 'auth:logout' %}">выйти</a>
+            {% else %}
+            <a href="{% url 'auth:login' %}">войти</a>
+            {% endif %}
+        </li>
+    </ul>
+    <a href="#" class="search"></a>
+    <a href="{% url 'basket:view' %}" class="basket"></a>
+    {% if basket %}
+    <a href="{% url 'basket:view' %}" class='basket-info'>
+        {{ basket.0.total_cost|floatformat:0 }} руб <br>
+        ({{ basket.0.total_quantity }} шт)
+    </a>
+    {% endif %}
+
+
+</div>

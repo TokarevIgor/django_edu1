@@ -78,7 +78,7 @@ html, body {
 	background-image: url(/static/img/search.png);
 	position: absolute;
 	top: 63px;
-	left: 1176px;
+	left: 1170px;
 }
 .basket {
 	display: block;
@@ -88,6 +88,18 @@ html, body {
 	position: absolute;
 	top: 63px;
 	left: 1210px;
+}
+
+.basket-info {
+	color: #8c8c8c;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: right;
+	display: block;
+	height: 23px;	
+	position: absolute;
+	top: 63px;
+	left: 1243px;
 }
 
 .clearfix:after {
@@ -877,16 +889,22 @@ td:first-child {
 	color:  #212121;
 	font-size: 18px;
 	font-weight: 700;
+	padding-bottom: 3px;
+	border-bottom: 2px solid #212121;
 }
 .links-menu li a:hover {
 	color:  #212121;
 	font-size: 18px;
 	font-weight: 700;
+	padding-bottom: 3px;
+	border-bottom: 2px solid #212121;
 }
 .links-menu li a:active {
 	color:  #6c6c6c;
 	font-size: 18px;
 	font-weight: 700;
+	padding-bottom: 3px;
+	border-bottom: 2px solid #212121;
 }
 
 .details-products {
@@ -992,6 +1010,32 @@ td:first-child {
 	box-shadow: none;
 }
 .red-button:active {
+	box-shadow: none;
+	background-color: #d41306;
+}
+
+.red-button-products_list {
+	display: block;
+	height: 50px;
+	width: 200px;
+	border-radius: 35px;
+	background-color: #f44336;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	color:  #ffffff;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
+	line-height: 55px;
+	letter-spacing: 6px;
+	margin-top: 5px;
+}
+.ed-button-products_list:hover {
+	box-shadow: none;
+}
+.red-button-products_list:active {
 	box-shadow: none;
 	background-color: #d41306;
 }
