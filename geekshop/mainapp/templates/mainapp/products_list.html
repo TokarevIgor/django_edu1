@@ -23,7 +23,7 @@
 
         {% for product in products %}
             <div class="block">
-                <a href="{% url 'products:product' product.id %}"><img src="/media/{{product.img}}" alt="img">
+                <a href="{% url 'products:product' product.pk %}"><img src="/media/{{product.img}}" alt="img">
                     <div class="text">
                         
                         <h4>{{ product.name }}</h4>

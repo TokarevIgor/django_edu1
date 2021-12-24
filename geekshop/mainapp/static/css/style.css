@@ -78,16 +78,28 @@ html, body {
 	background-image: url(/static/img/search.png);
 	position: absolute;
 	top: 63px;
-	left: 1176px;
+	left: 1170px;
 }
 .basket {
 	display: block;
 	width: 23px;
 	height: 23px;	
-	/*background-image: url(/static/img/basket.png);*/
+	background-image: url(/static/img/basket.png);
 	position: absolute;
 	top: 63px;
 	left: 1210px;
+}
+
+.basket-info {
+	color: #8c8c8c;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: right;
+	display: block;
+	height: 23px;	
+	position: absolute;
+	top: 63px;
+	left: 1243px;
 }
 
 .clearfix:after {
