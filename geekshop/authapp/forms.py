@@ -20,7 +20,7 @@ class ShopUserRegisterForm(UserCreationForm):
     class Meta:
         model = ShopUser
         fields = ('username', 'first_name', 'password1',
-                  'password2', 'email', 'age', 'phone_number', 'city','avatar')
+                  'password2', 'email', 'age', 'phone_number', 'city', 'avatar')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,8 +39,9 @@ class ShopUserRegisterForm(UserCreationForm):
 class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
-        fields = ('username', 'first_name', 'email', 'age', 'avatar', 'password', 'phone_number', 'city')
-    
+        fields = ('username', 'first_name', 'email', 'age',
+                  'avatar', 'password', 'phone_number', 'city')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -48,7 +49,7 @@ class ShopUserEditForm(UserChangeForm):
             field.help_text = ''
             if field_name == 'password':
                 field.widget = forms.HiddenInput()
-    
+
     def clean_age(self):
         data = self.cleaned_data['age']
         if data < 18:
