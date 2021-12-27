@@ -39,10 +39,14 @@ def main(request):
         'popular_products': Product.objects.filter(is_popular=True)
     })
 
+def get_categories_menu():
+   links_menu_category = ProductCategory.objects.filter(is_active=True)
+   return links_menu_category 
+
 
 def products(request, pk=None):
     title = 'продукты'
-    links_menu_category = ProductCategory.objects.all()
+    links_menu_category = get_categories_menu()
     basket = get_basket(request.user)
 
     if pk is not None:
@@ -94,7 +98,7 @@ def product(request, pk):
     content = {
         'title': product.name,
         'menu_links': MENU_LINKS,
-        'links_menu_category': ProductCategory.objects.all(),
+        'links_menu_category': get_categories_menu(),
         'product': product,
         'basket': get_basket(request.user),
     }
