@@ -2,56 +2,92 @@
 {% load static %}
 
 {% block content %}
-<div class="users_list">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+<div class="container mt-3 mb-4">
     <button class="new_user">
         <a href={% url 'admin:user_create' %}>
             новый пользователь
         </a>
     </button>
-    {% for object in objects %}
-    <div class="user_record {% if not object.is_active %}not_active{% endif %}">
-        <img src="/media/{{ object.avatar|default:'users_avatars/default.jpg' }}" alt="{{ object.username }}" class = "img-thumbnail">
-        <div class="user_role">
-            {% if object.is_superuser %}
-            администратор
-            {% else %}
-            пользователь
-            {% endif %}
-            <button>
-                <a href={% url 'admin:user_update' object.pk %}>
-                    редактировать
-                </a>
-            </button>
-            <button>
-                <a href={% url 'admin:user_delete' object.pk %}>
-                    удалить
-                </a>
-            </button>
-        </div>
-        <div class="user_name">
-            <p><strong>{{ object.username }}</strong></p>
-            <p>
-                {% if object.first_name %}
-                <b>{{ object.first_name|title }}</b>
-                {% if object.last_name %}
-                <p>{{ object.last_name|title }}</p>
-                {% endif %}
-                {% endif %}
-            </p>
-        </div>
-        <div class="user_age">
-            age:<br>
-            {{ object.age }} лет
-        </div>
-        <div class="user_email">
-            email:<br>
-            {{ object.email }}
-        </div>
-        <div class="user_lastlogin">
-            logged:<br>
-            {{ object.last_login }}
+    
+    <div class="col-lg-9 mt-4 mt-lg-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                    <table class="table manage-candidates-top mb-0">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th class="text-center">Статус</th>
+                                <th class="action text-right">Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for object in objects %}
+                            <tr class="candidates-list {% if not object.is_active %}not_active{% endif %}">
+                                <td class="title">
+                                    <div class="thumb">
+                                        <img class="img-fluid"
+                                            src="/media/{{ object.avatar|default:'users_avatars/default.jpg' }}"
+                                            alt="{{ object.username }}">
+                                    </div>
+                                    <div class="candidate-list-details">
+                                        <div class="candidate-list-info">
+                                            <div class="candidate-list-title">
+                                                <h5 class="mb-0"><a
+                                                        href={% url 'admin:user_update' object.pk %}>{{ object.username }}</a>
+                                                </h5>
+                                            </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+                                                    <li>{{ object.first_name }} {{ object.last_name }}</li>
+                                                    {% if object.age %}<li>{{ object.age }} лет </li>{% endif %}
+                                                    {% if object.city %}<li class="fas fa-map-marker-alt pr-1">
+                                                        {{ object.city }} </li> {% endif %}
+                                                    {% if object.phone_number %}<li>{{ object.phone_number }} </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="candidate-list-favourite-time text-center">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                        {% if object.is_superuser %}
+                                        Администратор
+                                        {% else %}
+                                        Пользователь
+                                        {% endif %}
+                                        </li>
+                                        <li>
+                                        {% if object.active %}
+                                        Активный
+                                        {% else %}
+                                        Не активный
+                                        {% endif %}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                        <li><a href="{% url 'admin:user_update' object.pk %}" class="text-info"
+                                                data-toggle="tooltip" title="" data-original-title="Edit"><i
+                                                    class="fas fa-pencil-alt"></i></a></li>
+                                        <li><a href="{% url 'admin:user_delete' object.pk %}" class="text-danger"
+                                                data-toggle="tooltip" title="" data-original-title="Delete"><i
+                                                    class="far fa-trash-alt"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    {% endfor%}
 </div>
 {% endblock %}
