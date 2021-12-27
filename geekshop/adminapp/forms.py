@@ -1,7 +1,7 @@
 from django import forms
 from authapp.models import ShopUser
 from authapp.forms import ShopUserEditForm
-from mainapp.models import ProductCategory
+from mainapp.models import ProductCategory, Product
 
 
 class ShopUserAdminEditForm(ShopUserEditForm):
@@ -21,6 +21,7 @@ class ProductCategoryEditForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
 
+
 class ProductCategoryCreateForm(forms.ModelForm):
     class Meta:
         model = ProductCategory
@@ -38,3 +39,15 @@ class ProductCategoryCreateForm(forms.ModelForm):
             raise forms.ValidationError("Слишком короткое описание")
 
         return data
+
+
+class ProductEditForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''

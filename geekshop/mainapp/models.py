@@ -29,6 +29,7 @@ class Product(models.Model):
         verbose_name='это новый продукт', default=False)
     is_popular = models.BooleanField(
         verbose_name='популярные товары', default=False)
+    is_active = models.BooleanField(verbose_name='активна', default=True)
 
     def __str__(self):
         return self.name
