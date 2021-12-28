@@ -9,7 +9,7 @@
     </a>
   </button>
 
-  {% for object in objects %}
+  {% for object in object_list %}
   <div class="category_record 
         {% if not object.is_active %}
             not_active
@@ -28,11 +28,13 @@
           редактировать
         </a>
       </button>
+      {% if object.is_active %}
       <button>
         <a href={% url 'admin:category_delete' object.pk %}>
           удалить
         </a>
       </button>
+      {% endif %}
     </div>
     <div class="category_desc">
       {{ object.description|title }}

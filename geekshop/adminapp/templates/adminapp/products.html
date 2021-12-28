@@ -9,9 +9,9 @@
         </a>
     </button>
 
-    {% for object in objects %}
+    {% for object in object_list %}
     <div class="product_record">
-        <img src="/media/{{object.image|default:'products_images/default.jpg'}}" alt="{{ object.name }}">
+        <img src="/media/{{object.img|default:'products_images/default.jpg'}}" alt="{{ object.name }}">
         <div class="product_name">
             {{ object.name|title }}
         </div>
