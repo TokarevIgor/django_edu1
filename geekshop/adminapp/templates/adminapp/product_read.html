@@ -7,14 +7,12 @@
       Продукт<strong>{{ object.category.name|title }} / 
                      {{ object.name|title }}</strong> 
     </div>
-    <img src="/media/{{ object.image|default:'products_images/default.jpg' }}"
+    <img src="/media/{{ object.img|default:'products_images/default.jpg' }}"
          alt="{{ object.name }}">
     <div class="summary">
       <b>цена</b>
       <p>{{ object.price }} руб</p>
-      <b>количество</b>
-      <p>{{ object.quantity }}</p>
-      <b>в каталоге</b>
+      <b>активно</b>
       <p>{% if object.is_active %}да{% else %}нет{% endif %}</p>
       <p>
         <button>
