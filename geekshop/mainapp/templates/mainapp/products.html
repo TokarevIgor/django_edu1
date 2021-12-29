@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block content %}
 
@@ -14,7 +15,7 @@
 		{% if hot_product %}
 		<div class="details-slider">
 			<div class="slider-product">
-				<img src="/media/{{ hot_product.img }}">
+				<img src="{{hot_product.img|media_folder_products}}">
 			</div>
 		</div>
 
