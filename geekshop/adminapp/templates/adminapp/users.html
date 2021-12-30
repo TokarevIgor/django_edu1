@@ -1,5 +1,6 @@
 {% extends 'adminapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
@@ -11,7 +12,7 @@
             новый пользователь
         </a>
     </button>
-    
+
     <div class="col-lg-9 mt-4 mt-lg-0">
         <div class="row">
             <div class="col-md-12">
@@ -25,12 +26,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for object in objects %}
+                            {% for object in object_list %}
                             <tr class="candidates-list {% if not object.is_active %}not_active{% endif %}">
                                 <td class="title">
                                     <div class="thumb">
                                         <img class="img-fluid"
-                                            src="/media/{{ object.avatar|default:'users_avatars/default.jpg' }}"
+                                            src="{{ object.avatar|media_folder_users }}"
                                             alt="{{ object.username }}">
                                     </div>
                                     <div class="candidate-list-details">
@@ -56,18 +57,18 @@
                                 <td class="candidate-list-favourite-time text-center">
                                     <ul class="list-unstyled">
                                         <li>
-                                        {% if object.is_superuser %}
-                                        Администратор
-                                        {% else %}
-                                        Пользователь
-                                        {% endif %}
+                                            {% if object.is_superuser %}
+                                            Администратор
+                                            {% else %}
+                                            Пользователь
+                                            {% endif %}
                                         </li>
                                         <li>
-                                        {% if object.active %}
-                                        Активный
-                                        {% else %}
-                                        Не активный
-                                        {% endif %}
+                                            {% if object.active %}
+                                            Активный
+                                            {% else %}
+                                            Не активный
+                                            {% endif %}
                                         </li>
                                     </ul>
                                 </td>
@@ -76,9 +77,11 @@
                                         <li><a href="{% url 'admin:user_update' object.pk %}" class="text-info"
                                                 data-toggle="tooltip" title="" data-original-title="Edit"><i
                                                     class="fas fa-pencil-alt"></i></a></li>
+                                        {% if object.is_active %}
                                         <li><a href="{% url 'admin:user_delete' object.pk %}" class="text-danger"
                                                 data-toggle="tooltip" title="" data-original-title="Delete"><i
                                                     class="far fa-trash-alt"></i></a></li>
+                                        {% endif %}
                                     </ul>
                                 </td>
                             </tr>

@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, render
 from basketapp.models import Basket
 from .models import ProductCategory, Product
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 import random
 
 MENU_LINKS = [
@@ -39,31 +41,41 @@ def main(request):
         'popular_products': Product.objects.filter(is_popular=True)
     })
 
+
 def get_categories_menu():
-   links_menu_category = ProductCategory.objects.filter(is_active=True)
-   return links_menu_category 
+    links_menu_category = ProductCategory.objects.filter(is_active=True)
+    return links_menu_category
 
 
-def products(request, pk=None):
+def products(request, pk=None, page=1):
     title = 'продукты'
     links_menu_category = get_categories_menu()
     basket = get_basket(request.user)
 
     if pk is not None:
         if pk == 0:
-            products = Product.objects.all().order_by('price')
-            category = {'name': 'все'}
+            products = Product.objects.filter(is_active=True,
+                                           category__is_active=True).order_by('price')
+            category = {'name': 'все', 'pk':0}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
             products = Product.objects.filter(
-                category__pk=pk).order_by('price')
+                category__pk=pk, is_active=True, category__is_active=True).order_by('price')
+
+        paginator = Paginator(products, 2)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
 
         content = {
             'title': title,
             'menu_links': MENU_LINKS,
             'links_menu_category': links_menu_category,
             'category': category,
-            'products': products,
+            'products': products_paginator,
             'basket': basket,
         }
 
