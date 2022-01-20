@@ -15,6 +15,11 @@ from ordersapp.forms import OrderItemForm
 class OrderList(ListView):
     model = Order
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'заказы'
+        return context
+
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
@@ -45,6 +50,7 @@ class OrderItemsCreate(CreateView):
                 formset = OrderFormSet()
 
         data['orderitems'] = formset
+        data['title'] = 'новый заказ'
         return data
 
     def form_valid(self, form):
@@ -72,6 +78,7 @@ class OrderItemsUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         data = super(OrderItemsUpdate, self).get_context_data(**kwargs)
+        data['title'] = 'заказ/редактирование'
         OrderFormSet = inlineformset_factory(Order,
                                              OrderItem,
                                              form=OrderItemForm,
@@ -103,6 +110,11 @@ class OrderItemsUpdate(UpdateView):
 class OrderDelete(DeleteView):
     model = Order
     success_url = reverse_lazy('ordersapp:orders_list')
+
+    def get_context_data(self, **kwargs):
+        data = super(OrderDelete, self).get_context_data(**kwargs)
+        data['title'] = 'заказ/удаление'
+        return data
 
 
 class OrderRead(DetailView):
