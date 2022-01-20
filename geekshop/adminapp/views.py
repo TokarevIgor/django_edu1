@@ -17,6 +17,11 @@ class UsersListView(ListView):
     model = ShopUser
     template_name = 'adminapp/users.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'пользователи'
+        return context
+
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
@@ -48,7 +53,6 @@ class UserUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'пользователь/редактирование'
-
         return context
 
 
@@ -56,18 +60,28 @@ class UserDeleteView(DeleteView):
     model = ShopUser
     template_name = 'adminapp/user_delete.html'
     success_url = reverse_lazy('admin:users')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'пользователь/удаление'
+        return context
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.is_active = False
         self.object.save()
 
-        return HttpResponseRedirect(self.get_success_url()) 
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductCategoryListView(ListView):
     model = ProductCategory
     template_name = 'adminapp/categories.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Категории'
+        return context
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):
@@ -98,18 +112,28 @@ class ProductCategoryDeleteView(DeleteView):
     model = ProductCategory
     template_name = 'adminapp/category_delete.html'
     success_url = reverse_lazy('admin:categories')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'категории/удаление'
+        return context
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.is_active = False
         self.object.save()
 
-        return HttpResponseRedirect(self.get_success_url()) 
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'adminapp/product_read.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'товар'
+        return context
 
 
 class ProductsListView(ListView):
@@ -122,9 +146,11 @@ class ProductsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = get_object_or_404(ProductCategory, pk=self.kwargs.get('pk'))
+        context['category'] = get_object_or_404(
+            ProductCategory, pk=self.kwargs.get('pk'))
+        context['title'] = 'товары'
 
-        return context    
+        return context
 
 
 class ProductCreateView(CreateView):
@@ -132,6 +158,11 @@ class ProductCreateView(CreateView):
     template_name = 'adminapp/product_update.html'
     success_url = reverse_lazy('admin:categories')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'продукт/создание'
+        return context
 
 
 class ProductUpdateView(UpdateView):
@@ -151,10 +182,15 @@ class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'adminapp/product_delete.html'
     success_url = reverse_lazy('admin:categories')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'продукт/удаление'
+        return context
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.is_active = False
         self.object.save()
 
-        return HttpResponseRedirect(self.get_success_url()) 
+        return HttpResponseRedirect(self.get_success_url())
