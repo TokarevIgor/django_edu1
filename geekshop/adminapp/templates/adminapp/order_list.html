@@ -1,0 +1,57 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<button class="btn btn-default btn-round">
+    <a href="{% url 'ordersapp:order_create' %}">
+        новый
+    </a>
+</button>
+<table class="table orders_list">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Создан</th>
+            <th>Обновлен</th>
+            <th>Статус</th>
+            <th>Пользователь</th>
+            <th>Активный</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in object_list %}
+
+        <tr class="{% if not item.is_active %}not_active{% endif %}">
+            <td class="td1 orders_list">{{ item.pk }}</td>
+            <td>{{ item.created|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ item.updated|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ item.get_status_display }}</td>
+            <td>{{ item.user }}</td>
+            <td>{{ item.is_active }}</td>
+            <td>
+                <a href="{% url 'ordersapp:order_read' item.pk %}">
+                    посмотреть
+                </a>
+            </td>
+            <td>
+                {% if item.status == 'FM' and item.is_active %}
+                <a href="{% url 'ordersapp:order_update' item.pk %}">
+                    редактировать
+                </a>
+                {% endif %}
+            </td>
+            <td>
+                {% if item.status == 'FM' and item.is_active %}
+                <a href="{% url 'ordersapp:order_delete' item.pk %}">
+                    удалить
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

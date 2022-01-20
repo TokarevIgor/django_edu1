@@ -1,3 +1,4 @@
+<div class="header clearfix">
 <ul class="menu">
     <li>
         <a href="{% url 'main' %}">
@@ -21,4 +22,12 @@
             {% endif %}
         </a>
     </li>
+    <li>
+        <a href="{% url 'admin:orders' %}" class="{% if request.resolver_match.url_name == 'orders' %}
+                  active
+                {% endif %}">
+            заказы магазина
+        </a>
+    </li>
 </ul>
+</div>
