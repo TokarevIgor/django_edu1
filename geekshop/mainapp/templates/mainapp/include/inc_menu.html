@@ -17,19 +17,14 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a href="{% url 'auth:edit' %}">
-                            {{ user.first_name|default:'Пользователь' }}
+                            Профиль
                         </a>
                     </li>
-                    {% comment %} <li>
+                    <li>
                         <a href="{% url 'ordersapp:orders_list' %}">
                             заказы
                         </a>
-                    </li> {% endcomment %}
-                    <li>
-                        <a href="#">
-                            заказы
-                        </a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
         </li>     
