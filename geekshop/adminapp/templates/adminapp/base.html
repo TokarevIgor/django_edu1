@@ -21,16 +21,17 @@
 
 <body>
     <div class="admin_container">
-        <div class="h2 text-center head">
-            Админка
-        </div>
-        {% block menu %}
-            {% include 'adminapp/include/inc_menu.html' %}
-        {% endblock %}
-
         <div class="container">
-        {% block content %}
-        {% endblock %}
+            <div class="h2 text-center head">
+                Админка
+            </div>
+            {% block menu %}
+            {% include 'adminapp/include/inc_menu.html' %}
+            {% endblock %}
+
+
+            {% block content %}
+            {% endblock %}
         </div>
     </div>
 </body>

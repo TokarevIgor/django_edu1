@@ -33,6 +33,7 @@ class OrderItemsCreate(CreateView):
         data = super(OrderItemsCreate, self).get_context_data(**kwargs)
         OrderFormSet = inlineformset_factory(Order, OrderItem,
                                              form=OrderItemForm, extra=1)
+        data['previous_page'] = data['view'].request.META['HTTP_REFERER']
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
@@ -79,6 +80,7 @@ class OrderItemsUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         data = super(OrderItemsUpdate, self).get_context_data(**kwargs)
         data['title'] = 'заказ/редактирование'
+        data['previous_page'] = data['view'].request.META['HTTP_REFERER']
         OrderFormSet = inlineformset_factory(Order,
                                              OrderItem,
                                              form=OrderItemForm,
@@ -123,6 +125,7 @@ class OrderRead(DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrderRead, self).get_context_data(**kwargs)
         context['title'] = 'заказ/просмотр'
+        context['previous_page'] = context['view'].request.META['HTTP_REFERER']
         return context
 
 

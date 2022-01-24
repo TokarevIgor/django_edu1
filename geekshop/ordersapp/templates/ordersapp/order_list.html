@@ -11,6 +11,16 @@
     Пользователь
     {% endif %}
 </div>
+<button class="btn btn-default btn-round">
+    <a href="{% url 'main' %}">
+        на главную
+    </a>
+</button>
+<button class="btn btn-default btn-round">
+    <a href="{% url 'ordersapp:order_create' %}">
+        новый заказ
+    </a>
+</button>
 <table class="table orders_list">
     <thead>
         <tr>
@@ -52,14 +62,4 @@
         {% endfor %}
     </tbody>
 </table>
-<button class="btn btn-default btn-round">
-    <a href="{% url 'main' %}">
-        на главную
-    </a>
-</button>
-<button class="btn btn-default btn-round">
-    <a href="{% url 'ordersapp:order_create' %}">
-        новый
-    </a>
-</button>
 {% endblock %}
