@@ -3,13 +3,12 @@
 {% load my_tags %}
 
 {% block content %}
+<button class="btn btn-default btn-round">
+    <a href={% url 'admin:product_create' category.pk %}>
+        новый продукт
+    </a>
+</button>
 <div class="products_list">
-    <button class="new_product">
-        <a href={% url 'admin:product_create' category.pk %}>
-            новый продукт
-        </a>
-    </button>
-
     {% for object in object_list %}
     <div class="product_record">
         <img src="{{object.img|media_folder_products}}" alt="{{ object.name }}">

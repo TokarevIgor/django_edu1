@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'basketapp',
     'adminapp',
     'social_django',
+    'ordersapp'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -55,7 +56,7 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-with open('google+.json', 'r') as f:
+with open('geekshop/google+.json', 'r') as f:
     GOOGLE_PLUS = json.load(f)
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_PLUS['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']

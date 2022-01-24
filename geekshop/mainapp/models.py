@@ -30,6 +30,8 @@ class Product(models.Model):
     is_popular = models.BooleanField(
         verbose_name='популярные товары', default=False)
     is_active = models.BooleanField(verbose_name='активна', default=True)
+    quantity = models.PositiveIntegerField(
+        verbose_name='количество на складе', default=0)
 
     def __str__(self):
         return self.name

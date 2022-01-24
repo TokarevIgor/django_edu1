@@ -2,13 +2,12 @@
 {% load static %}
 
 {% block content %}
+<button class="btn btn-default btn-round">
+  <a href={% url 'admin:category_create' %}>
+    новая категория
+  </a>
+</button>
 <div class="categories_list">
-  <button class="new_category">
-    <a href={% url 'admin:category_create' %}>
-      новая категория
-    </a>
-  </button>
-
   {% for object in object_list %}
   <div class="category_record 
         {% if not object.is_active %}
