@@ -79,39 +79,60 @@ window.onload = function () {
         var target_name = row[0].querySelector('input[type="number"]').name;
         orderitem_num = parseInt(target_name.replace('orderitems-', '').replace('-quantity', ''));
         delta_quantity = -quantity_arr[orderitem_num];
-        orderSummaryUpdate(price_arr[orderitem_num], delta_quantity);
+        quantity_arr[orderitem_num] = 0;
+        if (!isNaN(price_arr[orderitem_num]) && !isNaN(delta_quantity)) {
+            orderSummaryUpdate(price_arr[orderitem_num], delta_quantity);
+        }
     }
 
     $('.order_form select').change(function () {
-        
-        // var target = event.target;
-        // console.log(target.value);
-        // orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
-        
-        // $.ajax({
-        //     type: "POST",
-        //     // This is the dictionary you are SENDING to your Django code. 
-        //     // We are sending the 'action':add_car and the 'id: $car_id  
-        //     // which is a variable that contains what car the user selected
-        //     data: { action: "add_car", id: $car_id },
-        //     success: function(data){
-        //         // This will execute when where Django code returns a dictionary 
-        //         // called 'data' back to us.
-        //         $("#car").html("<strong>"+data.car+"</strong>");                
-        //     }
-        // });
-        
-        // price_arr[orderitem_num] = 
+        var target = event.target;
+        orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
+        var orderitem_product_pk = target.options[target.selectedIndex].value;
 
-        // if (price_arr[orderitem_num]) {
-        //     orderitem_quantity = parseInt(target.value);
-        //     if (isNaN(orderitem_quantity) || orderitem_quantity < 0) {
-        //         orderitem_quantity = 0;
-        //     }
-        //     delta_quantity = orderitem_quantity - quantity_arr[orderitem_num];
-        //     quantity_arr[orderitem_num] = orderitem_quantity;
-        //     orderSummaryUpdate(price_arr[orderitem_num], delta_quantity);
-        // }
+        if (orderitem_product_pk) {
+            $.ajax({
+                url: "/order/product/" + orderitem_product_pk + "/price/",
+                success: function (data) {
+                    if (data.price) {
+                        price_arr[orderitem_num] = parseFloat(data.price);
+                        if (isNaN(quantity_arr[orderitem_num])) {
+                            quantity_arr[orderitem_num] = 0;
+                        }
+                        var price_html = '<span>' +
+                            data.price.toString().replace('.', ',') +
+                            '</span> руб';
+                        var current_tr = $('.order_form table').
+                        find('tr:eq(' + (orderitem_num + 1) + ')');
+
+
+                        current_tr.find('td:eq(2)').html(price_html);
+
+                        if (isNaN(current_tr.find('input[type="number"]').val())) {
+                            current_tr.find('input[type="number"]').val(0);
+                        }
+                        orderSummaryRecalc();
+                    }
+                },
+            });
+        }
+        if (!order_total_quantity) {
+            orderSummaryRecalc();
+        }
+
+        function orderSummaryRecalc() {
+            order_total_quantity = 0;
+            order_total_cost = 0;
+            console.log('123123');
+
+            for (var i = 0; i < TOTAL_FORMS; i++) {
+                order_total_quantity += quantity_arr[i];
+                order_total_cost += quantity_arr[i] * price_arr[i];
+            }
+            $('.order_total_quantity').html(order_total_quantity.toString());
+            $('.order_total_cost').html(Number(order_total_cost.toFixed(2)).toString());
+        }
+
     });
 
 }
