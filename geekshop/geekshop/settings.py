@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'django_extensions',
     'mainapp',
     'authapp',
     'basketapp',
@@ -53,6 +55,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
 )
+
+# не хотел появляться , я так понимаю в ip дело пока включил принудительно
+#def show_toolbar(request):
+#     return True
+#DEBUG_TOOLBAR_CONFIG = {
+#     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+# }
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
@@ -70,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'geekshop.urls'

@@ -31,6 +31,7 @@ urlpatterns = [
     re_path(r'^auth/verify/google/oauth2/',
             include("social_django.urls", namespace="social")),
     re_path(r'^order/', include('ordersapp.urls', namespace='order')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 if settings.DEBUG:

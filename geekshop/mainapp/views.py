@@ -30,7 +30,7 @@ def main(request):
     return render(request, 'mainapp/index.html', context={
         'title': 'Магазин',
         'menu_links': MENU_LINKS,
-        'popular_products': Product.objects.filter(is_popular=True)
+        'popular_products': Product.objects.filter(is_popular=True).select_related('category')[:3]
     })
 
 
